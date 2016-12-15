@@ -1,24 +1,47 @@
 ---
-title: Installing and Configuring YOUR-PRODUCT-NAME
+title: Installing and Configuring Edge Installer for Pivotal Cloud Foundry
 owner: Partners
 ---
 
-This topic describes how to install and configure YOUR-PRODUCT-NAME.
+This topic describes how to install and configure Edge Installer for Pivotal Cloud Foundry.
 
-##<a id='install'></a> Install and Configure YOUR-PRODUCT-NAME
+##<a id='overview'></a>Installation Overview
+During the installation, the following events occur:
+
+* Ops Manager creates a VM for the Apigee Mirror Repo to host the Apigee yum repo, and makes sure that subsequent VMs have access to this repo.
+* Ops Manager then creates VMs and installs the Edge components that do not depend on other components, such as Zookeeper. Each Edge component is installed on its own VM.
+* Ops Manager then creates the next VM and installs the Edge components that do not depend on any other component except the components that have already been installed.
+* The “apigee” user is created on each VM.
+* The apigee-service utility is installed on each VM in case you have to log in to the VM to troubleshoot issues.
+
+After the installation completes, use the Edge management API to provision an organization, and log in to the Edge UI to start creating API proxies.
+
+##<a id='optional'></a>Installing optional Edge components
+
+You can optionally choose to install additional Edge components, including:
+
+* Apigee BaaS
+* Edge Monitoring Dashboard
+* Developer Services portal
+
+If you choose to install these optional components you might have to perform additional onboarding or configuration steps. 
+
+Apigee BaaS and Developer Services portal both require an SMTP server. If installed, they use the same SMTP server as configured for Edge. 
+
+##<a id='install'></a> Install and Configure Edge Installer for Pivotal Cloud Foundry
 
 1. Download the product file from Pivotal Network.
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file. 
 
-1. Click **Add** next to the uploaded YOUR-PRODUCT-NAME tile in the Ops Manager **Available Products** view to add it to your staging area.
+1. Click **Add** next to the uploaded Edge Installer for Pivotal Cloud Foundry tile in the Ops Manager **Available Products** view to add it to your staging area.
 
-1. Click the newly added **YOUR-PRODUCT-NAME** tile.
+1. Click the newly added **Edge Installer for Pivotal Cloud Foundry** tile.
 
-1. **This portion of the procedure should tell the users how to configure the newly added tile by walking them through the sections. Which fields should they fill out? What are the different checkboxes? Include relevant screenshots here.** 
+1. Configure the install as described at [Install Edge](http://docs.apigee.com/private-cloud/latest/installing-edge#installedge). 
 
-1. Click **Save**.
+1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to install Edge Installer for Pivotal Cloud Foundry tile.
 
-1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to install YOUR-PRODUCT-NAME tile.
+1. Test the install as described at [Test the installation](http://docs.apigee.com/private-cloud/latest/installing-edge#testtheinstallation).
 
-**If needed, include additional configuration information below. For example, maybe there are configuration options not required for installation but which could be useful for certain users.**
+1. After the Edge installation completes, you must provision Edge and any optional Edge components that you installed. For more, see [Provisioning organizations](http://docs.apigee.com/private-cloud/latest/provisioning-organizations).

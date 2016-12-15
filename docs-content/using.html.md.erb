@@ -1,12 +1,44 @@
 ---
-title: Using YOUR-PRODUCT-NAME
+title: Using Edge Installer for Pivotal Cloud Foundry
 owner: Partners
 ---
 
-This topic describes how to use YOUR-PRODUCT-NAME.
+After you have completed the installation of Edge and created an organization, you can perform several types of post-installation tasks.
 
-##<a id='using'></a> Using YOUR-PRODUCT-NAME
+## <a id='monitor'></a>Access the Monitoring Dashboard
+At install time, you can optionally choose to install the Beta release of the Edge Monitoring Dashboard. The dashboard helps you understand the health of various components (Routers, Message Processors, ZooKeeper, Cassandra) as well as HTTP error codes for various orgs and environments in your deployment. You can also snapshot these details and share them with Apigee if required for resolving support incidents.
 
-**This topic should include any instructions for how to use the service or dashboard created by the tile. Give procedures for how to perform the different functions offered by your product, and provide screenshots where necessary.** 
+If you choose to install the dashboard, see [Accessing the Monitoring Dashboard](http://docs.apigee.com/private-cloud/latest/accessing-monitoring-dashboard) for more information on using it.
 
-**You can also use this section to include information about Architecture and Troubleshooting for known errors. If you include a Troubleshooting section, follow the Symptom/Explanation format used in the [Okta Troubleshooting](http://docs.pivotal.io/p-identity/okta/troubleshooting.html) topic**.
+## <a id='status'></a>View Edge status
+
+In the Ops Manager, select the Edge tile, then select the **Status** tab to see the status of all Edge components. In this tab, you can see information such as the CPU usage, memory usage, and other information 
+
+## <a id='logs'></a>Access logs
+
+To access log files for an Edge component, you have to first go to the **Status** tab and request a download of the log file by selecting the download icon in the **LOGS** column. Then, go to the **Logs** tab to download the log file locally.
+
+## <a id='pwords'></a>Access default passwords
+
+The installer creates default passwords for many Edge components, including Postgres, Cassandra, and others. Typically, you will not need to use these passwords. 
+
+If you do require one of the passwords, use the following procedure to obtain it:
+
+1. Open the Ops Manager
+1. Select the Edge Tile.
+1. Select the **Credentials** tab.
+1. Select **Link to Credentials** next to the component you are interested in. For example, select it for **Cassandra Password**. You should see output in the form below, which includes the password:
+
+  `{"credential":{"type":"salted_credentials","value":{"identity":"5f75e7a405c9eac0","salt":"30905495ead5b75a","password":"yCz-GIThLId8UEermy-imeJaFOIa3j48"}}}`
+
+  Use the value of the `password` property to access the component.
+
+## <a id='modify'></a>Modify the Edge installation
+
+Modifying the Edge installation is similar to installing Edge. On the Settings tab, browse to the area that you want to modify, and then save your changes.
+
+Then return to the main Ops Manager page and select *Apply Changes*. 
+
+## <a id='doc'></a>Access the Edge documentation
+
+For complete information on using and configuring Edge, see [Version 4.16.09](http://docs.apigee.com/private-cloud/content/version-41609).
