@@ -3,26 +3,32 @@ title: Edge Installer for Pivotal Cloud Foundry
 owner: Partners
 ---
 
-Apigee Edge manages API complexity and risk in a multi- and hybrid-cloud world by ensuring security, visibility, and performance across the entire API landscape. For more information, see [What is Apigee Edge](http://docs.apigee.com/api-services/content/what-apigee-edge).
+This documentation describes Edge Installer for Pivotal Cloud Foundry (PCF), which installs the API management service [Edge for Private Cloud](http://docs.apigee.com/private-cloud/latest/overview) on PCF. 
+
+PCF Operators [download](https://network.pivotal.io/) and install the Edge Installer for PCF tile to expose the [Apigee Edge](http://signalsciences.com) API management platform in the Marketplace. Developers can then use Edge by creating instances of the service and binding them to their apps from Apps Manager or the Cloud Foundry Command Line Interface (cf CLI).
 
 ## <a id='overview'></a>Overview
 
-A deployment environment for Edge for the Private Cloud typically consists of at least nine separate servers, and more commonly 13 or more servers. The interactive installation process of Edge requires you to predefine and preconfigure each server, then install Edge components on each server in a specific order.
+Apigee Edge manages API complexity and risk in a multi- and hybrid-cloud world by ensuring security, visibility, and performance across the entire API landscape. For more information, see [What is Apigee Edge](http://docs.apigee.com/api-services/content/what-apigee-edge).
 
-You can optionally choose to install additional Edge components. These components require additional servers:
+Edge for Private Cloud lets customers run Apigee Edge on-premises.
+A deployment environment for Edge for Private Cloud typically consists of at least nine separate servers, and more commonly 13 or more. In addition, you can install optional Edge components that require more servers:
 
 * Apigee BaaS requires an additional six or more servers.
 * The Edge Monitoring Dashboard requires an additional server.
 * The Developer Services portal requires an additional server.
 
-Pivotal’s Ops Manager is a graphical web interface that you use to install and manage the set of supported pre-configured products and components on Pivotal Supported Cloud Platforms (AWS, vSphere, Openstack, GCP,  etc.) in a uniform way. 
+You can install Edge for Private Cloud and its optional additional components in two ways:
 
-Ops Manager relies on an open-source tool, called BOSH, that can handle the deployment, creation and management of a distributed system on the supported cloud infrastructures. Ops Manager hides the complexity of generating cloud specific deployment manifests and configurations involved with BOSH by allowing you to install, configure, and manage products through the Ops Manager UI. Products should conform to a package structure known as a Pivotal Tile that allows Ops Manager to generate the related forms and allow the various components to be configured, linked, scaled, and managed.
+* Interactive installation from the command line requires you to predefine and preconfigure each server individually, then install Edge components on each server in a specific order.
+* The **Edge Installer for PCF** tile in Ops Manager presents a graphical web interface that installs and manages pre-configured products and components in a uniform way across multiple IaaSes: AWS, Azure, GCP, OpenStack, and vSphere. 
+
+The [Edge Installer Advantages and Limitations](#advantages) section below compares these two installation methods in greater detail.
 
 ## <a id="snapshot"></a>Product Snapshot
 
 <dl>
-<dt>Edge Installer for Pivotal Cloud Foundry Details:</dt>
+<dt>Edge Installer for PCF Details:</dt>
 <dd><strong>Version</strong>: 4.16.09 </dd>
 <dd><strong>Release Date</strong>: December 15, 2016</dd>
 <dd><strong>Compatible Ops Manager Version(s)</strong>: v1.8.x</dd>
@@ -33,21 +39,18 @@ Ops Manager relies on an open-source tool, called BOSH, that can handle the depl
 </dl>
 
 ## <a id="reqs"></a>Requirements
-Edge Installer for Pivotal Cloud Foundry has the following requirements:
 
-* **Define VMs that meet the Edge system requirements**. Ensure that you have defined VMs that meet the memory, CPU, and disk requirements of Edge components as defined in [Installation Requirements](http://docs.apigee.com/private-cloud/latest/installation-requirements).
+Edge Installer for PCF has the following requirements:
 
-* **Configure load balancers**. With Ops Manager, you must predefine load balancers to control access to the servers running Edge. The load balancer defines the domain name and port of the Edge access point, optionally enables TLS, and forwards requests to the appropriate port on an Edge component. See [Configure load balancers](http://docs.apigee.com/private-cloud/latest/installing-edge) for more.
+* **VMs**: Virtual machines (VMs) for Edge must meet system requirements for memory, CPU, and disk space as defined in [Installation Requirements](http://docs.apigee.com/private-cloud/latest/installation-requirements).
 
-## <a id="limitations"></a>Differences between Edge interactive install and Edge Installer for Pivotal Cloud Foundry 
+* **Load Balancers**: Configure load balancers to control access to Edge servers. The load balancer defines the domain name and port of the Edge access point, optionally enables TLS, and forwards requests to the appropriate port on an Edge component. See [Configure load balancers](http://docs.apigee.com/private-cloud/latest/installing-edge) for details.
 
-The list describes differences between an interactive install and an Ops Manager install:
+## <a id="compare"></a>Edge Installer Advantages and Limitations
 
-* **No config files needed. Use the Ops Manager to specify installation and configuration information**. You do not have to create separate config files.  
+Edge Installer for PCF streamlines the Edge for Private Cloud installation process and differs from interactive installation via the command line in the following ways:
 
-* **Multiple data centers not supported**. The release supports the installation of a single data center only.
-
-* You can only specify the number servers for the Router and Message Processor components**. In this release, Edge is configured to create two Router servers and two Message Processor servers by default. However, you can increase or decrease that number at install time or later.
+* **No config files needed.** You use Ops Manager to specify installation and configuration information, and do not have to create separate config files.  
 
 * **No need to enable Cassandra authentication**. The Cassandra servers created during the install are not publicly accessible and therefore do not require you to enable authentication.
 
@@ -55,7 +58,17 @@ The list describes differences between an interactive install and an Ops Manager
 
 * **Do not have to open specific ports on the servers**. In an interactive Edge installation, you have to ensure that the necessary ports are open on each server as described in Edge port requirements.  
 
+* **Multiple data centers not supported**. The release supports the installation of a single data center only.
+
+* **You can only specify the number of servers for the Router and Message Processor components**. This release configures Edge to create two Router servers and two Message Processor servers by default. However, you can increase or decrease those numbers at install time or later.
+
 See [Differences between Operations Manager and interactive Edge installs](http://docs.apigee.com/private-cloud/latest/differences-between-operations-manager-and-interactive-edge-installs) for more.
+
+## <a id="bosh"></a> Ops Manager, BOSH, and PCF Tiles
+
+Behind the Ops Manager interface, the open-source tool [BOSH](http://bosh.io) handles deploying, running, and managing distributed software systems on all PCF-supported cloud infrastructures. Ops Manager provides a uniform graphical, forms-based interface that hides the complexity of generating the cloud-specific deployment manifests and configurations that BOSH requires.
+
+Ops Manager supports graphical configuration, deployment, and management of any software product packaged in [PCF Tile](http://docs.pivotal.io/tiledev) structure.
 
 ## <a id="feedback"></a>Feedback
 

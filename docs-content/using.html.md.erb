@@ -3,7 +3,7 @@ title: Using Edge Installer for Pivotal Cloud Foundry
 owner: Partners
 ---
 
-After you have completed the installation of Edge and created an organization, you can perform several types of post-installation tasks.
+After you have completed the installation of Edge and created an organization, you can perform several types of tasks.
 
 ## <a id='monitor'></a>Access the Monitoring Dashboard
 At install time, you can optionally choose to install the Beta release of the Edge Monitoring Dashboard. The dashboard helps you understand the health of various components (Routers, Message Processors, ZooKeeper, Cassandra) as well as HTTP error codes for various orgs and environments in your deployment. You can also snapshot these details and share them with Apigee if required for resolving support incidents.
@@ -12,13 +12,13 @@ If you choose to install the dashboard, see [Accessing the Monitoring Dashboard]
 
 ## <a id='status'></a>View Edge status
 
-In the Ops Manager, select the Edge tile, then select the **Status** tab to see the status of all Edge components. In this tab, you can see information such as the CPU usage, memory usage, and other information 
+In the Ops Manager, select the Edge tile, then select the **Status** tab to see the status of all Edge components. In this tab, you can see information such as the CPU usage, memory usage, and other information.
 
-## <a id='logs'></a>Access logs
+## <a id='logs'></a>Access Logs
 
-To access log files for an Edge component, you have to first go to the **Status** tab and request a download of the log file by selecting the download icon in the **LOGS** column. Then, go to the **Logs** tab to download the log file locally.
+To access log files for an Edge component, select the Edge tile in Ops Manager, open the **Status** tab, and  request a download of the log file by selecting the download icon in the **LOGS** column. Then go to the **Logs** tab to download the log file locally.
 
-## <a id='pwords'></a>Access default passwords
+## <a id='pwords'></a>Access Default Passwords
 
 The installer creates default passwords for many Edge components, including Postgres, Cassandra, and others. Typically, you will not need to use these passwords. 
 
@@ -35,9 +35,9 @@ If you do require one of the passwords, use the following procedure to obtain it
 
 ## <a id='modify'></a>Modify the Edge installation
 
-Modifying the Edge installation is similar to installing Edge. On the Settings tab, browse to the area that you want to modify, and then save your changes.
+Modifying the Edge installation is similar to installing Edge. From the **Settings** tab, browse to the section that you want to modify, and fill in new form values.
 
-Then return to the main Ops Manager page and select **Apply Changes**. 
+**Save** your changes, then return to the main Ops Manager page and select **Apply Changes**.
 
 ## <a id='doc'></a>Access the Edge documentation
 
