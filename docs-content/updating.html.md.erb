@@ -1,0 +1,16 @@
+---
+title: Updating Edge for Pivotal Cloud Foundry
+owner: Partners
+---
+
+To update Edge version 4.16.09 to version 4.17.01:
+
+1. Download the product file from the [Pivotal Network](https://network.pivotal.io).
+1. In the Ops Manager, select **Import a Product** to upload the product tile.
+1. Select the plus (+) icon to accept the tile. The 4.17.01 tile replaces the existing 4.16.09 tile.
+1. Select **Apply changes** to start the update. When the update completes, you return to the Ops Manager.
+1. **If you installed the 4.16.09 Developer Services portal only**:
+  1. Use ssh to connect to the Ops Manager host machine. For example: `$ ssh userName@11.222.333.444`
+  1. Run the following command to complete the portal update: `$ bosh recreate apigee-drupal-devportal/0`
+
+For information on the new features available in 4.17.01, see [Version 4.17.01](http://docs.apigee.com/private-cloud/content/version-41701).
