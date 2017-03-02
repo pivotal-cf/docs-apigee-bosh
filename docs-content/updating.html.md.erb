@@ -1,5 +1,5 @@
 ---
-title: Updating Edge for Pivotal Cloud Foundry v4.16.09 to v4.17.01
+title: Updating Edge Installer for PCF v4.16.09 to v4.17.01
 owner: Partners
 ---
 <style>
@@ -17,13 +17,13 @@ owner: Partners
 contact <a href="http://support.apigee.com/">Apigee Support</a>. The dashboard update is a manual process
 and is not documented here.</p>
 
-To update Edge for Pivotal Cloud Foundry v4.16.09 to v4.17.01:
+To update Edge Installer for Pivotal Cloud Foundry (PCF) v4.16.09 to v4.17.01:
 
 1. Download the Edge Installer for PCF v4.17.01 product file from the [Pivotal Network](https://network.pivotal.io).
 1. In the Ops Manager, select **Import a Product** to upload the product tile.
 1. Select the plus (+) icon to accept the tile. The v4.17.01 tile replaces the existing v4.16.09 tile.
 1. Select **Apply changes** to start the update. When the update completes, you return to the Ops Manager.
-1. **If you installed the v4.16.09 Developer Services portal only**:
+1. If you installed the v4.16.09 Developer Services portal:
   1. Use ssh to connect to the Ops Manager host machine. For example: `$ ssh userName@11.222.333.444`
   1. Run the following command to complete the portal update: `$ bosh recreate apigee-drupal-devportal/0`
 
