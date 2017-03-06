@@ -8,7 +8,7 @@ This topic describes how to install and configure Edge Installer for Pivotal Clo
 ##<a id='overview'></a>Installation Overview
 During the installation, the following events occur:
 
-* Ops Manager creates a VM for the Apigee Mirror Repo to host the Apigee `yum` repo, and makes sure that subsequent VMs have access to this repo.
+* Ops Manager creates a virtual machine (VM) for the Apigee Mirror Repo to host the Apigee `yum` repo, and makes sure that subsequent VMs have access to this repo.
 * Ops Manager then creates VMs and installs the Edge components that do not depend on other components, such as Zookeeper. Each Edge component is installed on its own VM.
 * Ops Manager then creates the next VM and installs the Edge components that do not depend on any other component except the components that have already been installed.
 * The `apigee` user is created on each VM.
@@ -19,7 +19,7 @@ For more information, see [Understanding APIs and API proxies](http://docs.apige
 
 ##<a id='optional'></a>Install Optional Edge Components
 
-During the install process, you can optionally choose to install additional Edge components, including:
+During the install process, you can optionally choose to install additional Edge components, including the following:
 
 * [Apigee BaaS](http://docs.apigee.com/api-baas)
 * [Edge Monitoring Dashboard](http://docs.apigee.com/sites/docs/files/EdgeMonitoringDashboardBeta.pdf)

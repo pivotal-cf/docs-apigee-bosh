@@ -3,26 +3,31 @@ title: Edge Installer for PCF
 owner: Partners
 ---
 
-This documentation describes Edge Installer for Pivotal Cloud Foundry (PCF), which installs the 
-API management service [Apigee Edge for Private Cloud v4.17.01](http://docs.apigee.com/private-cloud/latest/overview) (Edge) on PCF. 
+This documentation describes Edge Installer for Pivotal Cloud Foundry (PCF), 
+which installs the API management service [Apigee Edge for Private Cloud v4.17.01](http://docs.apigee.com/private-cloud/latest/overview) (Edge) on PCF. 
 
-PCF Operators [download](https://network.pivotal.io/) and install the Edge Installer for PCF tile to expose 
-theAAEdge](http://docs.apigee.com/api-services/content/what-apigee-edge) API management platform in the Marketplace. 
-Developers can then use Edge by creating instances of the service and binding them to their apps from Apps Manager or 
-the Cloud Foundry Command Line Interface (cf CLI).
+PCF Operators [download](https://network.pivotal.io/) and install the Edge 
+Installer for PCF tile to expose the [Apigee Edge](http://docs.apigee.com/api-services/content/what-apigee-edge) API 
+management platform in the Marketplace. 
+Developers can then use Edge by creating instances of the service and binding 
+them to their apps from Apps Manager or the Cloud Foundry Command Line 
+Interface (cf CLI).
 
 ## <a id='overview'></a>Overview
 
-Edge manages API complexity and risk in a multi- and hybrid-cloud world by ensuring security, visibility, and performance across the entire API landscape. 
+Edge manages API complexity and risk in a multi- and hybrid-cloud world by 
+ensuring security, visibility, and performance across the entire API landscape. 
 For more information, see [What is Edge](http://docs.apigee.com/api-services/content/what-apigee-edge).
 
 Edge for Private Cloud lets customers run Edge on-premises.
-A deployment environment for Edge for Private Cloud typically consists of at least nine separate servers, and more commonly 13 or more. In addition, you can install optional Edge components that require more servers:
+A deployment environment for Edge for Private Cloud typically consists of at 
+least nine separate servers, and more commonly 13 or more. In addition, you can 
+install optional Edge components that require more servers:
 
 * Apigee BaaS requires an additional six or more servers.
 * The Edge Monitoring Dashboard requires an additional server.
 * The Developer Services portal requires an additional server.
-* Monetization is an add-on to the Management Server and Message Processor so does not require additional servers.
+* Monetization is an add-on to the Management Server and Message Processor and does not require additional servers.
 
 You can install Edge and its optional additional components in two ways:
 
@@ -47,11 +52,9 @@ The [Differences between Edge Interactive Install and Edge Installer for PCF](#c
 
 This release of Edge contains the following new features:
 
-* Support for Edge v4.17.01. For more information, 
-  see [v4.17.01 - Edge for Private Cloud release notes](http://docs.apigee.com/release-notes/content/41701-edge-private-cloud-release-notes).
-* Add support for Monetization. For more information, see [Understand monetization](http://docs.apigee.com/monetization/content/basics-monetization).
-* Added support for updated Monitoring Dashboard. 
-  For more information, see [Apigee Monitoring Dashboard Beta Overview](http://docs.apigee.com/private-cloud/latest/apigee-monitoring-dashboard-overview).
+* Support for Edge v4.17.01. For more information, see [v4.17.01 - Edge for Private Cloud release notes](http://docs.apigee.com/release-notes/content/41701-edge-private-cloud-release-notes).
+* Added support for Monetization. For more information, see [Understand monetization](http://docs.apigee.com/monetization/content/basics-monetization).
+* Added support for updated Monitoring Dashboard. For more information, see [Apigee Monitoring Dashboard Beta Overview](http://docs.apigee.com/private-cloud/latest/apigee-monitoring-dashboard-overview).
 
 
 ## <a id="reqs"></a>Requirements
@@ -60,20 +63,16 @@ Edge Installer for PCF has the following requirements:
 
 * **VMs**: Virtual machines (VMs) for Edge must meet system requirements for memory, CPU, and disk space as defined in [Installation Requirements](http://docs.apigee.com/private-cloud/latest/installation-requirements).
 
-* **Load Balancers**: Configure load balancers to control access to Edge servers. 
-  The load balancer defines the domain name and port of the Edge access point, optionally enables TLS, 
-  and forwards requests to the appropriate port on an Edge component. 
-  For more information, see [Configure load balancers](http://docs.apigee.com/private-cloud/v4.17.01/installing-edge-using-ops-manager#prerequisites-configureloadbalancers).
+* **Load Balancers**: Configure load balancers to control access to Edge servers. The load balancer defines the domain name and port of the Edge access point, optionally enables TLS, and forwards requests to the appropriate port on an Edge component. For more information, see [Configure load balancers](http://docs.apigee.com/private-cloud/v4.17.01/installing-edge-using-ops-manager#prerequisites-configureloadbalancers).
 
 ## <a id="compare"></a>Differences between Edge Interactive Install and Edge Installer for PCF
 
-Edge Installer for PCF streamlines the Edge for Private Cloud installation process and differs from interactive installation via the command line in the following ways:
+Edge Installer for PCF streamlines the Edge for Private Cloud installation 
+process and differs from interactive installation using the command line in the following ways:
 
 * **No config files needed.** You use Ops Manager to specify installation and configuration information, and do not have to create separate config files.  
 
-* **Enable Monetization only after installing Edge.** You must install Edge first, 
-  and then enable Monetization and apply that change to the Edge installation. 
-  You cannot enable Monetization at the same time as you install Edge.
+* **Enable Monetization only after installing Edge.** You must install Edge first, and then enable Monetization and apply that change to the Edge installation. You cannot enable Monetization at the same time that you install Edge.
 
 * **No need to enable Cassandra authentication**. The Cassandra servers created during the install are not publicly accessible and therefore do not require you to enable authentication.
 
