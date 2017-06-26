@@ -1,3 +1,7 @@
+## About This Repo
+
+This repo publishes to [Edge Installer for PCF](https://docs.pivotal.io/partners/edge-installer/).
+
 ## Pivotal Cloud Foundry Partners Template
 
 This template helps partners prepare documentation for Pivotal Cloud Foundry (PCF) partner services that appear on [Pivotal Network](https://network.pivotal.io/). 
