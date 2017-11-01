@@ -19,6 +19,10 @@ Follow the steps below to update Apigee Edge Installer for Pivotal Cloud Foundry
 1. Download the Edge Installer for PCF v4.17.09 product file from the [Pivotal Network](https://network.pivotal.io).
 1. In the Ops Manager, select **Import a Product** to upload the product tile.
 1. Select the plus (+) icon to accept the tile. The v4.17.09 tile replaces the existing v4.17.05 tile.
+1. **Only if you have enabled Monetization**:
+    1. Select **Config Overrides** in the **Settings** tab.
+    1. Specify the following value under **Apigee Global Config Overrides**: `conf_apix-mint_mint.enable_allow_default_pg=true`
+    1. Select **Save**.
 1. Select **Apply changes** to start the update. When the update completes, you return to the Ops Manager.
 
 For information on the new features available in v4.17.09, 
