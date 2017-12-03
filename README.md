@@ -1,6 +1,6 @@
 ## About This Repo
 
-This repo publishes to [Edge Installer for PCF](https://docs.pivotal.io/partners/edge-installer/).
+This repo publishes to [Apigee Edge Installer for PCF](https://docs.pivotal.io/partners/edge-installer/).
 
 ## Pivotal Cloud Foundry Partners Template
 

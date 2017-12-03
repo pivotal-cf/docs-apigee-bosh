@@ -3,12 +3,14 @@ title: Installing and Configuring Apigee Edge Installer for PCF
 owner: Partners
 ---
 
+
 This topic describes how to install and configure Apigee Edge Installer for Pivotal Cloud Foundry (PCF). Edge Installer for PCF lets PCF developers use [Apigee Edge for Private Cloud v4.17.09](http://docs.apigee.com/private-cloud/latest/overview) (Edge).
+
 
 ##<a id='overview'></a>Installation Overview
 During the installation, the following events occur:
 
-* Ops Manager creates a virtual machine (VM) for the Apigee Mirror Repo to host the Apigee `yum` repo, and makes sure that subsequent VMs have access to this repo.
+* Ops Manager creates a virtual machine (VM) for the Apigee Mirror Repo to host the Apigee `yum` repository, and makes sure that subsequent VMs have access to this repository.
 * Ops Manager then creates VMs and installs the Edge components that do not depend on other components, such as Zookeeper. Each Edge component is installed on its own VM.
 * Ops Manager then creates the next VM and installs the Edge components that do not depend on any other component except the components that have already been installed.
 * The `apigee` user is created on each VM.
@@ -31,15 +33,15 @@ Installing these components may require you to perform additional onboarding or 
 
 Apigee BaaS and Developer Services portal both require an SMTP server. If installed, they use the same SMTP server as configured for Edge. 
 
-##<a id='install'></a> Install and Configure Edge Installer for PCF
+##<a id='install'></a> Install and Configure Apigee Edge Installer for PCF
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io).
 
 1. Navigate to the Ops Manager **Installation Dashboard** and click **Import a Product** to upload the product file. 
 
-1. Click **Add** next to the uploaded **Edge Installer for Pivotal Cloud Foundry** tile in the Ops Manager **Available Products** view to add it to your staging area.
+1. Click **Add** next to the uploaded **Apigee Edge Installer for Pivotal Cloud Foundry** tile in the Ops Manager **Available Products** view to add it to your staging area.
 
-1. Click the newly added **Edge Installer for Pivotal Cloud Foundry** tile.
+1. Click the newly added **Apigee Edge Installer for Pivotal Cloud Foundry** tile.
 
 1. Configure the install as described at [Installing Edge using Ops Manager](https://docs.apigee.com/private-cloud/v4.17.09/installing-edge-using-ops-manager). 
 
@@ -47,5 +49,7 @@ Apigee BaaS and Developer Services portal both require an SMTP server. If instal
 
 1. Test the install as described in [Test the installation](https://docs.apigee.com/private-cloud/v4.17.09/installing-edge-using-ops-manager#testtheinstallation).
 
+
 1. After the Edge Installer for PCF installation completes, you must provision Edge and any optional Edge components that you installed. 
    For more information, see [Provisioning organizations](https://docs.apigee.com/private-cloud/v4.17.09/provisioning-organizations).
+

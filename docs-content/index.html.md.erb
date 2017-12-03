@@ -6,7 +6,7 @@ owner: Partners
 This documentation describes Apigee Edge Installer for Pivotal Cloud Foundry (PCF), 
 which installs the API management service [Apigee Edge for Private Cloud v4.17.09](http://docs.apigee.com/private-cloud/latest/overview) (Edge) on PCF. 
 
-PCF Operators [download](https://network.pivotal.io/) and install the Edge 
+PCF Operators [download](https://network.pivotal.io/) and install the Apigee Edge 
 Installer for PCF tile to expose the [Apigee Edge](http://docs.apigee.com/api-services/content/what-apigee-edge) API 
 management platform in the Marketplace. 
 Developers can then use Edge by creating instances of the service and binding 
@@ -32,13 +32,13 @@ install optional Edge components that require more servers:
 You can install Edge and its optional additional components in two ways:
 
 * Interactive installation from the command line requires you to predefine and preconfigure each server individually, then install Edge components on each server in a specific order.
-* The **Edge Installer for PCF** tile in Ops Manager presents a graphical web interface that installs and manages pre-configured products and components in a uniform way across multiple IaaSes: AWS, Azure, GCP, OpenStack, and vSphere. 
+* The **Apigee Edge Installer for PCF** tile in Ops Manager presents a graphical web interface that installs and manages pre-configured products and components in a uniform way across multiple IaaSes: AWS, Azure, GCP, OpenStack, and vSphere. 
 
-The [Differences between Edge Interactive Install and Edge Installer for PCF](#compare) section below compares these two installation methods in greater detail.
+The [Differences between Edge Interactive Install and Apigee Edge Installer for PCF](#compare) section below compares these two installation methods in greater detail.
 
 ## <a id="snapshot"></a>Product Snapshot
 
-The following table provides version and version-support information about Edge Installer for PCF:
+The following table provides version and version-support information about Apigee Edge Installer for PCF:
 
 <table class="nice">
     <th>Element</th>
@@ -70,6 +70,7 @@ The following table provides version and version-support information about Edge 
 
 This release of Edge contains the following new features:
 
+
 * Support for Edge v4.17.09. For more information, see [v4.17.09 - Edge for Private Cloud release notes](https://docs.apigee.com/release-notes/content/41709-edge-private-cloud-release-notes).
 * Support for OAuth2 and for the Edge SSO module to support SAML. See [Supporting SAML on Edge for Private Cloud](https://docs.apigee.com/private-cloud/latest/supporting-saml-edge-private-cloud) for more.
 * When enabling Monetization, you must now set the following config override: `conf_apix-mint_mint.enable_allow_default_pg=true`. See [Configuring Monetization using Ops Manager](https://docs.apigee.com/private-cloud/content/configuring-monetization-using-ops-manager) for more.
@@ -78,15 +79,15 @@ This release of Edge contains the following new features:
 
 ## <a id="reqs"></a>Requirements
 
-Edge Installer for PCF has the following requirements:
+Apigee Edge Installer for PCF has the following requirements:
 
 * **VMs**: Virtual machines (VMs) for Edge must meet system requirements for memory, CPU, and disk space as defined in [Installation Requirements](http://docs.apigee.com/private-cloud/latest/installation-requirements).
 
 * **Load Balancers**: Configure load balancers to control access to Edge servers. The load balancer defines the domain name and port of the Edge access point, optionally enables TLS, and forwards requests to the appropriate port on an Edge component. For more information, see [Configure load balancers](https://docs.apigee.com/private-cloud/v4.17.09/installing-edge-using-ops-manager#prerequisites-configureloadbalancers).
 
-## <a id="compare"></a>Differences between Edge Interactive Install and Edge Installer for PCF
+## <a id="compare"></a>Differences between Edge Interactive Install and Apigee Edge Installer for PCF
 
-Edge Installer for PCF streamlines the Edge for Private Cloud installation 
+Apigee Edge Installer for PCF streamlines the Edge for Private Cloud installation 
 process and differs from interactive installation using the command line in the following ways:
 
 * **No config files needed.** You use Ops Manager to specify installation and configuration information, and do not have to create separate config files.  
