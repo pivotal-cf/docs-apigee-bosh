@@ -4,7 +4,7 @@ owner: Partners
 ---
 
 This documentation describes Apigee Edge Installer for Pivotal Cloud Foundry (PCF), 
-which installs the API management service [Apigee Edge for Private Cloud v4.17.05](http://docs.apigee.com/private-cloud/latest/overview) (Edge) on PCF. 
+which installs the API management service [Apigee Edge for Private Cloud v4.17.09](http://docs.apigee.com/private-cloud/latest/overview) (Edge) on PCF. 
 
 PCF Operators [download](https://network.pivotal.io/) and install the Apigee Edge 
 Installer for PCF tile to expose the [Apigee Edge](http://docs.apigee.com/api-services/content/what-apigee-edge) API 
@@ -45,19 +45,19 @@ The following table provides version and version-support information about Apige
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>v4.17.05</td>
+        <td>v4.17.09</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>June 22, 2017</td>
+        <td>December 4, 2017</td>
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>v1.8.x, v1.9.x, 1.10.x</td>
+        <td>v1.10.x, v1.11.x, and 1.12.x</td>
     </tr>
     <tr>
         <td>Compatible Elastic Runtime version(s)</td>
-        <td>v1.8.x, v1.9.x, 1.10.x</td>
+        <td>v1.9.x, v1.10.x, and 1.12.x</td>
     </tr>
     <tr>
         <td>IaaS support</td>
@@ -65,16 +65,16 @@ The following table provides version and version-support information about Apige
     </tr>
 </table>
 
-## <a id="new"></a>New Features for Edge v4.17.05
+## <a id="new"></a>New Features for Edge v4.17.09
 
 
 This release of Edge contains the following new features:
 
-* Support for Edge v4.17.05. For more information, see [v4.17.05 - Edge for Private Cloud release notes](http://docs.apigee.com/release-notes/content/41705-edge-private-cloud-release-notes).
-* Support for Ops Manager and Elastic Runtime version 1.10.x. 
-* You must now set the `SMTPMAILFROM` parameter when installing Edge. This parameter specifies the email address used when Edge sends automated emails, such as when a user requests to reset a password.  
 
-    When upgrading or installing Edge, the Apigee Edge Installer for Pivotal Cloud Foundry automatically sets the `SMTPMAILFROM` parameter to the email address of the sys admin. You can later change that value by using the procedure described in [Configuring the Edge SMTP server](http://docs.apigee.com/private-cloud/latest/configuring-edge-smtp-server).
+* Support for Edge v4.17.09. For more information, see [v4.17.09 - Edge for Private Cloud release notes](https://docs.apigee.com/release-notes/content/41709-edge-private-cloud-release-notes).
+* Support for OAuth2 and for the Edge SSO module to support SAML. See [Supporting SAML on Edge for Private Cloud](https://docs.apigee.com/private-cloud/latest/supporting-saml-edge-private-cloud) for more.
+* When enabling Monetization, you must now set the following config override: `conf_apix-mint_mint.enable_allow_default_pg=true`. See [Configuring Monetization using Ops Manager](https://docs.apigee.com/private-cloud/content/configuring-monetization-using-ops-manager) for more.
+* Support for Ops Manager and Elastic Runtime version 1.11.x and 1.12.x. 
 
 
 ## <a id="reqs"></a>Requirements
@@ -83,7 +83,7 @@ Apigee Edge Installer for PCF has the following requirements:
 
 * **VMs**: Virtual machines (VMs) for Edge must meet system requirements for memory, CPU, and disk space as defined in [Installation Requirements](http://docs.apigee.com/private-cloud/latest/installation-requirements).
 
-* **Load Balancers**: Configure load balancers to control access to Edge servers. The load balancer defines the domain name and port of the Edge access point, optionally enables TLS, and forwards requests to the appropriate port on an Edge component. For more information, see [Configure load balancers](http://docs.apigee.com/private-cloud/v4.17.05/installing-edge-using-ops-manager#prerequisites-configureloadbalancers).
+* **Load Balancers**: Configure load balancers to control access to Edge servers. The load balancer defines the domain name and port of the Edge access point, optionally enables TLS, and forwards requests to the appropriate port on an Edge component. For more information, see [Configure load balancers](https://docs.apigee.com/private-cloud/v4.17.09/installing-edge-using-ops-manager#prerequisites-configureloadbalancers).
 
 ## <a id="compare"></a>Differences between Edge Interactive Install and Apigee Edge Installer for PCF
 
@@ -93,6 +93,8 @@ process and differs from interactive installation using the command line in the 
 * **No config files needed.** You use Ops Manager to specify installation and configuration information, and do not have to create separate config files.  
 
 * **Enable Monetization only after installing Edge.** You must install Edge first, and then enable Monetization and apply that change to the Edge installation. You cannot enable Monetization at the same time that you install Edge.
+
+* **Enable Edge SSO only after installing Edge.** Install Edge first and then ensure that Edge is working correctly before enabling Edge SSO to support SAML. You cannot enable Edge SSO at the same time that you install Edge. 
 
 * **No need to enable Cassandra authentication**. The Cassandra servers created during the install are not publicly accessible and therefore do not require you to enable authentication.
 
@@ -104,7 +106,7 @@ process and differs from interactive installation using the command line in the 
 
 * **You can only specify the number of servers for the Router and Message Processor components**. This release configures Edge to create two Router servers and two Message Processor servers by default. However, you can increase or decrease those numbers at install time or later.
 
-For more information, see [Differences between Operations Manager and interactive Edge installs](http://docs.apigee.com/private-cloud/v4.17.05/differences-between-operations-manager-and-interactive-edge-installs).
+For more information, see [Differences between Operations Manager and interactive Edge installs](https://docs.apigee.com/private-cloud/v4.17.09/differences-between-operations-manager-and-interactive-edge-installs).
 
 ## <a id="bosh"></a> Ops Manager, BOSH, and PCF Tiles
 
