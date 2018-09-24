@@ -4,7 +4,7 @@ owner: Partners
 ---
 
 
-This topic describes how to install and configure Apigee Edge Installer for Pivotal Cloud Foundry (PCF). Edge Installer for PCF lets PCF developers use [Apigee Edge for Private Cloud v4.17.09](http://docs.apigee.com/private-cloud/latest/overview) (Edge).
+This topic describes how to install and configure Apigee Edge Installer for Pivotal Cloud Foundry (PCF). Edge Installer for PCF lets PCF developers use [Apigee Edge for Private Cloud v4.18.05](http://docs.apigee.com/private-cloud/latest/overview) (Edge).
 
 
 ##<a id='overview'></a>Installation Overview
@@ -23,15 +23,13 @@ For more information, see [Understanding APIs and API proxies](http://docs.apige
 
 During the install process, you can optionally choose to install additional Edge components, including the following:
 
-* [Apigee BaaS](http://docs.apigee.com/api-baas)
-* [Edge Monitoring Dashboard](http://docs.apigee.com/private-cloud/latest/apigee-monitoring-dashboard-overview)
 * [Developer Services portal](http://docs.apigee.com/developer-services/content/what-developer-portal)
 * [Edge SSO](https://docs.apigee.com/private-cloud/latest/supporting-saml-edge-private-cloud) 
 * [Monetization](http://docs.apigee.com/monetization/content/basics-monetization)
 
 Installing these components may require you to perform additional onboarding or configuration steps.
 
-Apigee BaaS and Developer Services portal both require an SMTP server. If installed, they use the same SMTP server as configured for Edge. 
+Developer Services portal requires an SMTP server. If installed, it uses the same SMTP server as configured for Edge. 
 
 ##<a id='install'></a> Install and Configure Apigee Edge Installer for PCF
 
@@ -43,13 +41,13 @@ Apigee BaaS and Developer Services portal both require an SMTP server. If instal
 
 1. Click the newly added **Apigee Edge Installer for Pivotal Cloud Foundry** tile.
 
-1. Configure the install as described at [Installing Edge using Ops Manager](https://docs.apigee.com/private-cloud/v4.17.09/installing-edge-using-ops-manager). 
+1. Configure the install as described at [Installing Edge using Ops Manager](https://docs.apigee.com/private-cloud/v4.18.05/installing-edge-using-ops-manager). 
 
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to complete the installation.
 
-1. Test the install as described in [Test the installation](https://docs.apigee.com/private-cloud/v4.17.09/installing-edge-using-ops-manager#testtheinstallation).
+1. Test the install as described in [Test the installation](https://docs.apigee.com/private-cloud/v4.18.05/installing-edge-using-ops-manager).
 
 
-1. After the Edge Installer for PCF installation completes, you must provision Edge and any optional Edge components that you installed. 
-   For more information, see [Provisioning organizations](https://docs.apigee.com/private-cloud/v4.17.09/provisioning-organizations).
+1. After the Edge Installer for PCF installation completes, you must provision an Organization in Edge, as well as any optional Edge components that you installed. 
+   For more information, see [Provisioning organizations](https://docs.apigee.com/private-cloud/v4.18.05/onboard-organization).
 
