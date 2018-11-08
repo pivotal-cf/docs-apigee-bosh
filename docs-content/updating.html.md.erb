@@ -1,5 +1,5 @@
 ---
-title: Updating Apigee Edge Installer for PCF v4.17.05 to v4.17.09
+title: Updating Apigee Edge Installer for PCF v4.17.09 to v18.05.01
 owner: Partners
 ---
 <style>
@@ -14,6 +14,238 @@ owner: Partners
 </style>
 
 
+##<a id='upgrades'></a>Upgrades
+
+###<a id='v18.05'></a>Updating Apigee Installer for PCF v4.17.09 to v18.05.01 (the latest version available)
+
+Below, you will find some changes in software component between v18.05.01 and v4.17.09 like the change of Postgres version from 9.4 to 9.6.
+
+Apigee operating procedure also requires a database to be backed up, so that in case of failure it can be recovered from backups. The backups are outside the scope of BOSH release and should be done separately.
+
+**Note**:
+This BOSH release does not support zero downtime postgres upgrade.
+
+Below, you will find the steps of the upgrade process:
+
+1. Upgrade to v18.05.01 tile using the Ops Manager.
+1. The upgrade will likely fail at the ‘upgrade Postgres step.’
+1. SSH to both Postgres master and standby and stop the monit services.
+
+
+	```
+	sudo su -
+	monit stop apigee-postgresql
+	monit stop edge-postgres-server
+	```
+
+1. Stop edge qpid servers. Qpid should not be pushing any data to Postgres during upgrade.
+
+	```
+	/opt/apigee/apigee-service/bin/apigee-service edge-postgres-server stop
+	```
+
+1. Promote standby to master.
+
+  1. SSH to the Postgres standby machine. To check if its standby, run the following command.
+
+		```
+		sudo /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql postgres-check-standby
+		```
+
+	1. Promote the current standby to master.
+
+		```
+	/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql promote-standby-to-master <ip address of new master>
+	/opt/apigee/apigee-service/bin/apigee-all restart
+	```
+
+	1. Check whether it is promoted to master by running the command below.
+
+		```
+		sudo /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql postgres-check-master
+		```
+
+	1. Set replication on the new master.
+
+		Edit **/var/vcap/jobs/edge-postgres-server/config/silent.conf** and change the following.
+
+		```
+	PG_MASTER=IPorDNSofNewMaster
+	PG_STANDBY=IPorDNSofOldMaster
+	```
+
+		Run the following command to set replication.
+
+		```
+		/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-		replication-on-master -f /var/vcap/jobs/edge-postgres-server/config/	silent.conf
+		```
+
+		Verify the host replication is added by checking **/opt/apigee/apigee-postgresql/conf/pg_hba.conf**.
+
+1. Update apigee-postgresql on the new master.
+
+	1. On the new master node, note down the values from **/etc/yum/vars/apigeerepohost**, **/etc/yum/vars/apigeeuser**, and **/etc/yum/vars/apigeepassword**.
+
+		We will need them in the next step.
+
+	1. Run the following command to bootstrap v18.05.
+
+			curl http://user:password@repohost:3939/bootstrap_4.18.05.sh -o /tmp/bootstrap_4.18.05.sh
+			bash /tmp/bootstrap_4.18.05.sh apigeerepohost=repohost:3939 apigeeuser=user apigeepassword=password apigeeprotocol=http://
+			/opt/apigee/apigee-service/bin/apigee-service apigee-setup update
+
+
+	1. Stop edge-postgres in the new master.
+
+		```
+		/opt/apigee/apigee-service/bin/apigee-service edge-postgres-server stop
+		```
+	1. Check edge-postgres and apigee-postgresql are stopped in the old master. They should be already stopped.
+
+	1. Run upgrade on the new master.
+
+		```
+	/opt/apigee/apigee-setup/bin/update.sh -c ps -f
+	/var/vcap/jobs/edge-postgres-server/config/silent.conf
+		```
+
+		The upgrade should be successful.
+
+	1. Upgrade the database in the new master node.
+
+		```
+		/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql db_upgrade
+		```
+1. Upgrade apigee-postgresql on the old master.
+
+	1. Stop apigee-postgresql on the old master by running the following command.
+
+		```
+	/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql stop
+	```
+
+	1. Edit **/var/vcap/jobs/edge-postgres-server/config/silent.conf** and change the following.
+
+  		```
+   		PG_MASTER=IPorDNSofNewMaster
+   		PG_STANDBY=IPorDNSofOldMaster
+   		```
+
+   		Run the following commands below.
+
+   		```
+   		 mv  /opt/apigee/data/apigee-postgresql/pgdata
+   		 /opt/apigee/data/apigee-postgresql/pgdata_old
+
+ 	    /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql
+ 	    setup-replication-on-standby -f
+ 	    /var/vcap/jobs/edge-postgres-server/config/silent.conf
+ 	    ```
+
+	1. Update apigee-postgresql.
+
+		```
+	/opt/apigee/apigee-setup/bin/update.sh -c ps -f
+	/var/vcap/jobs/edge-postgres-server/config/silent.conf
+	```
+
+1. Update Edge Components on the new master.
+
+	1. Start Postgres on the new master.
+
+		```
+	/opt/apigee/apigee-service/bin/apigee-service edge-postgres-server restart
+	```
+
+	2. Update Edge Components on the new master.
+
+		```
+	/opt/apigee/apigee-setup/bin/update.sh -c edge -f
+	/var/vcap/jobs/edge-postgres-server/config/silent.conf
+	```
+
+1. Update/Install Edge Components on the old master.
+
+	1. Install Edge Component on the old master.
+
+		```
+		/opt/apigee/apigee-service/bin/apigee-service edge-postgres-server install
+		```
+
+	1. Update the Edge Component on the old master.
+
+		```
+	/opt/apigee/apigee-setup/bin/update.sh -c edge -f
+	/var/vcap/jobs/edge-postgres-server/config/silent.conf
+		```
+
+1. Check that all the services are running in both master and node. At this point, you can log into Apigee’s analytics dashboard and see all the data.
+
+1. Reswap master and standby as described in the official documentation ([https://docs.apigee.com/private-cloud/v4.18.05/handling-postgressql-database-failover] (https://docs.apigee.com/private-cloud/v4.18.05/handling-postgressql-database-failover)).
+
+	1. On the current master node (N1), run the command below to stop apigee-postgresql.
+
+		```
+		/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql stop
+		```
+
+	1. On the current standby node (N2), invoke the command below to promote it to master.
+
+
+			/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql
+			promote-standby-to-master IPorDNSofOldMaster(N1)
+
+	1. On the new master (N2) node, edit **/var/vcap/jobs/edge-postgres-server/config/silent.conf** and change the following.
+
+
+			PG_MASTER=IPorDNSofNewMaster(N2)
+			PG_STANDBY=IPorDNSofOldMaster(N1)
+
+		Then, run the following command below.
+
+			/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql
+			setup-replication-on-master -f
+			/var/vcap/jobs/edge-postgres-server/config/silent.conf
+
+		Verify the host replication is added by checking **/opt/apigee/apigee-postgresql/conf/pg_hba.conf**.
+
+	1. On the old master node( N1), **edit /var/vcap/jobs/edge-postgres-server/config/silent.conf** and change the following.
+
+			/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql stop
+
+	1. On the old master (N1), clean up the data.
+
+			rm -rf /opt/apigee/data/apigee-postgresql/
+
+	1. Make the old master (N1) as standby.
+
+			/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql
+			setup-replication-on-standby -f
+			/var/vcap/jobs/edge-postgres-server/config/silent.conf
+
+	1. Check for master and standby in both machines on the new master (N2).
+
+			/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql
+			postgres-check-master
+
+		On the oId master (N1), proceed with the following.
+
+			/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql
+			postgres-check-standby
+1. Start qpid servers on the qpid nodes.
+
+		/opt/apigee/apigee-service/bin/apigee-service edge-postgres-server restart
+
+1. Start the monit services on both master and standby.
+
+		monit start apigee-postgresql
+		monit start edge-postgres-server
+
+1. Rerun ‘Apply changes’ using the Ops Manager to finish validation and complete the setup.
+
+###<a id='v4.17.09'></a>Updating Apigee Edge Installer for PCF v4.17.05 to v4.17.09
+
+
 Follow the steps below to update Apigee Edge Installer for Pivotal Cloud Foundry (PCF) v4.17.05 to v4.17.09:
 
 
@@ -26,5 +258,5 @@ Follow the steps below to update Apigee Edge Installer for Pivotal Cloud Foundry
     1. Select **Save**.
 1. Select **Apply changes** to start the update. When the update completes, you return to the Ops Manager.
 
-For information on the new features available in v4.17.09, 
+For information on the new features available in v4.17.09,
 see [4.17.09 - Edge for Private Cloud release notes](https://docs.apigee.com/release-notes/content/41709-edge-private-cloud-release-notes).
