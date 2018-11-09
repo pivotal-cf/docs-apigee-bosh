@@ -3,36 +3,34 @@ title: Apigee Edge Installer for PCF
 owner: Partners
 ---
 
-This documentation describes Apigee Edge Installer for Pivotal Cloud Foundry (PCF), 
-which installs the API management service [Apigee Edge for Private Cloud v4.17.09](http://docs.apigee.com/private-cloud/latest/overview) (Edge) on PCF. 
+This documentation describes Apigee Edge Installer for Pivotal Cloud Foundry (PCF),
+which installs the API management service [Apigee Edge for Private Cloud v4.18.05.01](https://docs.apigee.com/private-cloud/v4.18.05/overview) (Edge) on PCF.
 
-PCF Operators [download](https://network.pivotal.io/) and install the Apigee Edge 
-Installer for PCF tile to expose the [Apigee Edge](http://docs.apigee.com/api-services/content/what-apigee-edge) API 
-management platform in the Marketplace. 
-Developers can then use Edge by creating instances of the service and binding 
-them to their apps from Apps Manager or the Cloud Foundry Command Line 
+PCF Operators [download](https://network.pivotal.io/) and install the Apigee Edge
+Installer for PCF tile to expose the [Apigee Edge](http://docs.apigee.com/api-services/content/what-apigee-edge) API
+management platform in the Marketplace.
+Developers can then use Edge by creating instances of the service and binding
+them to their apps from Apps Manager or the Cloud Foundry Command Line
 Interface (cf CLI).
 
 ## <a id='overview'></a>Overview
 
-Edge manages API complexity and risk in a multi- and hybrid-cloud world by 
-ensuring security, visibility, and performance across the entire API landscape. 
+Edge manages API complexity and risk in a multi- and hybrid-cloud world by
+ensuring security, visibility, and performance across the entire API landscape.
 For more information, see [What is Edge](http://docs.apigee.com/api-services/content/what-apigee-edge).
 
 Edge for Private Cloud lets customers run Edge on-premises.
-A deployment environment for Edge for Private Cloud typically consists of at 
-least nine separate servers, and more commonly 13 or more. In addition, you can 
+A deployment environment for Edge for Private Cloud typically consists of at
+least nine separate servers, and more commonly 13 or more. In addition, you can
 install optional Edge components that require more servers:
 
-* Apigee BaaS requires an additional six or more servers.
-* The Edge Monitoring Dashboard requires an additional server.
 * The Developer Services portal requires an additional server.
 * Monetization is an add-on to the Management Server and Message Processor and does not require additional servers.
 
 You can install Edge and its optional additional components in two ways:
 
 * Interactive installation from the command line requires you to predefine and preconfigure each server individually, then install Edge components on each server in a specific order.
-* The **Apigee Edge Installer for PCF** tile in Ops Manager presents a graphical web interface that installs and manages pre-configured products and components in a uniform way across multiple IaaSes: AWS, Azure, GCP, OpenStack, and vSphere. 
+* The **Apigee Edge Installer for PCF** tile in Ops Manager presents a graphical web interface that installs and manages pre-configured products and components in a uniform way across multiple IaaSes: AWS, Azure, GCP, OpenStack, and vSphere.
 
 The [Differences between Edge Interactive Install and Apigee Edge Installer for PCF](#compare) section below compares these two installation methods in greater detail.
 
@@ -45,19 +43,19 @@ The following table provides version and version-support information about Apige
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>v4.17.09</td>
+        <td>v18.05.01</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>December 4, 2017</td>
+        <td>November 12, 2018</td>
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>v1.10.x, v1.11.x, and 1.12.x</td>
+        <td>v2.0.x, v2.1.x, and v2.2.x</td>
     </tr>
     <tr>
-        <td>Compatible Elastic Runtime version(s)</td>
-        <td>v1.9.x, v1.10.x, and 1.12.x</td>
+        <td>Compatible Pivotal Application Service version(s)</td>
+        <td>v2.0.x, v2.1.x, and v2.2.x</td>
     </tr>
     <tr>
         <td>IaaS support</td>
@@ -65,17 +63,49 @@ The following table provides version and version-support information about Apige
     </tr>
 </table>
 
-## <a id="new"></a>New Features for Edge v4.17.09
+## <a id="new"></a>New Features for Edge v18.05.01
 
 
 This release of Edge contains the following new features:
 
 
-* Support for Edge v4.17.09. For more information, see [v4.17.09 - Edge for Private Cloud release notes](https://docs.apigee.com/release-notes/content/41709-edge-private-cloud-release-notes).
-* Support for OAuth2 and for the Edge SSO module to support SAML. See [Supporting SAML on Edge for Private Cloud](https://docs.apigee.com/private-cloud/latest/supporting-saml-edge-private-cloud) for more.
-* When enabling Monetization, you must now set the following config override: `conf_apix-mint_mint.enable_allow_default_pg=true`. See [Configuring Monetization using Ops Manager](https://docs.apigee.com/private-cloud/content/configuring-monetization-using-ops-manager) for more.
-* Support for Ops Manager and Elastic Runtime version 1.11.x and 1.12.x. 
+* JWT Policies are now Generally Available (GA).
+* RedHat Enterprise Linux 6.9 is now supported.
+* Oracle Linux 6.9 is now supported.
+* CentOS 6.9 is now supported.
+* New Edge experience installation configuration changes.
+* Router retry options can now be set at the virtual host level.
 
+## <a id="new"></a>Retirements for Edge v18.05.01
+
+In this release, the following components were retired:
+
+* API BaaS
+* Monitoring Dashboard (Beta)
+
+## <a id="new"></a>Deprecations for Edge v18.05.01
+
+In this release, the following components were deprecated:
+
+* Apigee secure stores (vaults) replaced by KVMs
+* Adding paths on the API proxy Performance tab
+* SMTPSSL property for the Developer Services portal
+
+## <a id="new"></a>Bug Fixes for Edge v18.05.01
+
+In this release, the following bugs were fixed:
+
+* Prevent user's email address from being changed (65550638)
+* Security vulnerability in jackson-databind (69711616)
+* Memory leak in Message Processors (71612599)
+
+## <a id="new"></a>Known Issues for Edge v18.05.01
+
+In this release, the following issues were detected:
+
+* Hostnames not resolving (79757554)
+* Permission error message appears when stopping apigee-postgresql (72379834)
+* Create reverse proxy via Open API option is displayed (79949124)
 
 ## <a id="reqs"></a>Requirements
 
@@ -83,30 +113,30 @@ Apigee Edge Installer for PCF has the following requirements:
 
 * **VMs**: Virtual machines (VMs) for Edge must meet system requirements for memory, CPU, and disk space as defined in [Installation Requirements](http://docs.apigee.com/private-cloud/latest/installation-requirements).
 
-* **Load Balancers**: Configure load balancers to control access to Edge servers. The load balancer defines the domain name and port of the Edge access point, optionally enables TLS, and forwards requests to the appropriate port on an Edge component. For more information, see [Configure load balancers](https://docs.apigee.com/private-cloud/v4.17.09/installing-edge-using-ops-manager#prerequisites-configureloadbalancers).
+* **Load Balancers**: Configure load balancers to control access to Edge servers. The load balancer defines the domain name and port of the Edge access point, optionally enables TLS, and forwards requests to the appropriate port on an Edge component. For more information, see [Configure load balancers](https://docs.apigee.com/private-cloud/v4.18.05/installing-edge-using-ops-manager#prerequisites-configureloadbalancers).
 
 ## <a id="compare"></a>Differences between Edge Interactive Install and Apigee Edge Installer for PCF
 
-Apigee Edge Installer for PCF streamlines the Edge for Private Cloud installation 
+Apigee Edge Installer for PCF streamlines the Edge for Private Cloud installation
 process and differs from interactive installation using the command line in the following ways:
 
-* **No config files needed.** You use Ops Manager to specify installation and configuration information, and do not have to create separate config files.  
+* **No config files needed.** You use Ops Manager to specify installation and configuration information, and do not have to create separate config files.
 
 * **Enable Monetization only after installing Edge.** You must install Edge first, and then enable Monetization and apply that change to the Edge installation. You cannot enable Monetization at the same time that you install Edge.
 
-* **Enable Edge SSO only after installing Edge.** Install Edge first and then ensure that Edge is working correctly before enabling Edge SSO to support SAML. You cannot enable Edge SSO at the same time that you install Edge. 
+* **Enable Edge SSO only after installing Edge.** Install Edge first and then ensure that Edge is working correctly before enabling Edge SSO to support SAML. You cannot enable Edge SSO at the same time that you install Edge.
 
 * **No need to enable Cassandra authentication**. The Cassandra servers created during the install are not publicly accessible and therefore do not require you to enable authentication.
 
 * **The two Postgres servers are configured as master/standby servers**. You must use Postgres master/standby configuration in this release.
 
-* **Do not have to open specific ports on the servers**. In an interactive Edge installation, you have to ensure that the necessary ports are open on each server as described in Edge port requirements.  
+* **Do not have to open specific ports on the servers**. In an interactive Edge installation, you have to ensure that the necessary ports are open on each server as described in Edge port requirements.
 
 * **Multiple data centers not supported**. The release supports the installation of a single data center only.
 
 * **You can only specify the number of servers for the Router and Message Processor components**. This release configures Edge to create two Router servers and two Message Processor servers by default. However, you can increase or decrease those numbers at install time or later.
 
-For more information, see [Differences between Operations Manager and interactive Edge installs](https://docs.apigee.com/private-cloud/v4.17.09/differences-between-operations-manager-and-interactive-edge-installs).
+For more information, see [Differences between Operations Manager and interactive Edge installs](https://docs.apigee.com/private-cloud/v4.18.05/differences-between-operations-manager-and-interactive-edge-installs).
 
 ## <a id="bosh"></a> Ops Manager, BOSH, and PCF Tiles
 
@@ -116,10 +146,10 @@ Ops Manager supports graphical configuration, deployment, and management of any 
 
 ## <a id="feedback"></a>Feedback
 
-Please contact [Apigee Support](https://community.apigee.com/content/apigee-customer-support) for any bugs, feature requests, or questions. 
+Please contact [Apigee Support](https://community.apigee.com/content/apigee-customer-support) for any bugs, feature requests, or questions.
 
 You can also tap into the knowledge and experience of Apigee customers and employees by posting a new question to the [Apigee Community](https://community.apigee.com/index.html).
 
 ## <a id='license'></a>License
 
-Each installation of Edge requires a unique license file that you obtain from Apigee. If license file is valid, the management server validates the expiry and allowed Message Processor (MP) count. 
+Each installation of Edge requires a unique license file that you obtain from Apigee. If license file is valid, the management server validates the expiry and allowed Message Processor (MP) count.
