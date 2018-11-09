@@ -41,7 +41,7 @@ Below, you will find the steps of the upgrade process:
 1. Stop edge qpid servers. Qpid should not be pushing any data to Postgres during upgrade.
 
 	```
-	/opt/apigee/apigee-service/bin/apigee-service edge-postgres-server stop
+	/opt/apigee/bin/apigee-service/apigee-all stop
 	```
 
 1. Promote standby to master.
@@ -244,7 +244,7 @@ Below, you will find the steps of the upgrade process:
 1. Start qpid servers on the qpid nodes.
 
 	```
-	/opt/apigee/apigee-service/bin/apigee-service edge-postgres-server restart
+	/opt/apigee/apigee-service/bin/apigee-all restart
 	```
 
 1. Start the monit services on both master and standby.
