@@ -204,7 +204,14 @@ Below, you will find the steps of the upgrade process:
 
 		Verify the host replication is added by checking **/opt/apigee/apigee-postgresql/conf/pg_hba.conf**.
 
-	1. On the old master node( N1), **edit /var/vcap/jobs/edge-postgres-server/config/silent.conf** and change the following.
+	1. On the old master node (N1), **edit /var/vcap/jobs/edge-postgres-server/config/silent.conf** and change the following.
+
+		```
+		PG_MASTER=IPorDNSofNewMaster(N2)
+ 		PG_STANDBY=IPorDNSofOldMaster(N1)
+		```
+
+	1. On the old master node (N1), stop apigee-postgresql.
 
 		```
 		/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql stop
@@ -228,7 +235,7 @@ Below, you will find the steps of the upgrade process:
 		/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql postgres-check-master
 		```
 
-		On the oId master (N1), proceed with the following.
+		On the old master (N1), proceed with the following.
 
 		```
 		/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql postgres-check-standby
@@ -248,6 +255,32 @@ Below, you will find the steps of the upgrade process:
 	```
 
 1. Rerun ‘Apply changes’ using the Ops Manager to finish validation and complete the setup.
+
+1. In case devportal setup still fails, ssh to the devportal box.
+
+	1. Go to the **/opt/apigee/data/apigee-lb/conf.d** directory and unlink the wrong link. It may still be linked to v4.17.09 file, which no longer exists.
+
+		```
+		unlink apigee-drupal-devportal-nginx.conf
+		```
+
+	1. Link it to the correct location with the command below.
+
+		```
+		ln -s /opt/apigee/apigee-drupal-devportal-4.18.05-0.0.274/conf/apigee-drupal-devportal-nginx.conf apigee-drupal-devportal-nginx.conf
+		```
+
+	1. Restart Apigee services.
+
+		```
+		/opt/apigee/apigee-service/bin/apigee-all restart
+		```
+
+	1. Finish the upgrade by running the command below.
+
+		```
+		/opt/apigee/apigee-setup/bin/update.sh -c dp -f/var/vcap/jobs/apigee-drupal-devportal/config/silent.conf
+		```
 
 ###<a id='v4.17.09'></a>Updating Apigee Edge Installer for PCF v4.17.05 to v4.17.09
 
