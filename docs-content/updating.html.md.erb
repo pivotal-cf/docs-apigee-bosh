@@ -55,6 +55,7 @@ Below, you will find the steps of the upgrade process:
 	```
 
 1. SSH to devportal machine and complete following steps.
+  admin_email and pass are credentials provided during tile configuration.
 
   ```
   sudo -i
@@ -66,8 +67,9 @@ Below, you will find the steps of the upgrade process:
   cd /var/vcap/jobs/apigee-drupal-devportal/bin
   mv drain drain-save
   cd /opt/apigee/apigee-drupal/wwwroot/sites/
-  drush upwd <<admin_email>> --password=<<pass>>
+  drush upwd admin_email --password=pass
   ```
+
 
 1. Go to OpsMan and press **Apply Changes** again.
 
