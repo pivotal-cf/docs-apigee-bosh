@@ -16,15 +16,15 @@ In this topic:
 
 ### Upgrades
 
-####<a id='v19.01'></a> Updating Apigee Installer from PCF v18.05.01 to v4.19.01 (the latest version available)
+####<a id='v19.01'></a> Updating Apigee Installer from PCF v18.05.01 to v19.01.05 (the latest version available)
 
-Below, you will find some changes in software component between v4.19.01 and v18.05.01 like upgrade Postgres standby.
+Below, you will find some changes in software component between v19.01.05 and v18.05.01 like upgrade Postgres standby.
 
 Apigee operating procedure also requires a database to be backed up, so that in case of failure it can be recovered from backups. The backups are outside the scope of BOSH release and should be done separately.
 
 Below, you will find the steps of the upgrade process:
 
-1. Upgrade to v4.19.01 tile using the Ops Manager.
+1. Upgrade to v19.01.05 tile using the Ops Manager.
 
 1. The upgrade will likely fail at the ‘Updating instance edge-postgres-server: edge-postgres-server/b243b24b-d660-442c-902b-3201557ed9a5 (1)’ step
 
@@ -55,7 +55,8 @@ Below, you will find the steps of the upgrade process:
 	```
 
 1. SSH to devportal machine and complete following steps.
-  admin_email and pass are credentials provided during tile configuration.
+
+  <b>admin_email</b> and <bpass</b> are credentials provided during tile configuration.
 
   ```
   sudo -i
