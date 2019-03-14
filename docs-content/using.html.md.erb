@@ -3,38 +3,68 @@ title: Using Apigee Edge on PCF
 owner: Partners
 ---
 
-After you have completed the installation of the Apigee Edge Installer for Pivotal Cloud Foundry (PCF) and [created an organization](https://docs.apigee.com/private-cloud/v4.18.05/onboard-organization), you can perform several types of tasks.
+In this topic: 
 
-## <a id='status'></a>View Edge Status
+* [View Edge Status](https://docs.pivotal.io/partners/edge-installer/using.html#status)
+* [Access Logs](https://docs.pivotal.io/partners/edge-installer/using.html#logs)
+* [Access Default Passwords](https://docs.pivotal.io/partners/edge-installer/using.html#pwords)
+* [Modify the Apigee Edge Installer for PCF Configuration](https://docs.pivotal.io/partners/edge-installer/using.html#modify)
+* [Access the Edge Documentation](https://docs.pivotal.io/partners/edge-installer/using.html#doc)
+
+After you have completed the installation of the Apigee Edge Installer for Pivotal Cloud Foundry (PCF) and [created an organization](https://docs.apigee.com/private-cloud/v4.19.01/onboard-organization), you can perform several types of tasks.
+
+
+### View Edge Status
 
 In the Ops Manager, select the Apigee Edge Installer for PCF tile, then select the **Status** tab to see the status of all Edge components. In this tab, you can see information such as the CPU usage, memory usage, and other information.
 
-## <a id='logs'></a>Access Logs
 
-To access log files for an Edge component, select the Apigee Edge Installer for PCF tile in Ops Manager, open the **Status** tab, and  request a download of the log file by selecting the download icon in the **LOGS** column. Then go to the **Logs** tab to download the log file locally.
+### Access Logs
 
-## <a id='pwords'></a>Access Default Passwords
+To access log files for an Edge component, select the Apigee Edge Installer for PCF tile in Ops Manager, open the **Status** tab, and request a download of the log file by selecting the download icon in the **LOGS** column. Then go to the **Logs** tab to download the log file locally.
+
+
+### Access Default Passwords
 
 The installer creates default passwords for many Edge components, including Postgres, Cassandra, and others. Typically, you will not need to use these passwords.
 
 If you do require one of the passwords, use the following procedure to obtain it:
 
 1. Open the Ops Manager
+
 1. Select the Apigee Edge Installer for PCF tile.
+
 1. Select the **Credentials** tab.
-1. Select **Link to Credentials** next to the component you are interested in. For example, select it for **Cassandra Password**. You should see output in the form below, which includes the password:
 
-  `{"credential":{"type":"salted_credentials","value":{"identity":"5f75e7a405c9eac0","salt":"30905495ead5b75a","password":"yCz-GIThLId8UEermy-imeJaFOIa3j48"}}}`
+1. Select Link to Credentials next to the component you are interested in. For example, select it for **Cassandra Password**. You should see output in the form below, which includes the password:
 
-  Use the value of the `password` property to access the component.
 
-## <a id='modify'></a>Modify the Apigee Edge Installer for PCF Configuration
+```
+{"credential":{"type":"salted_credentials","value":
 
-Modifying the Apigee Edge Installer for PCF configuration is similar to installing Apigee Edge Installer for PCF.
-From the **Settings** tab, browse to the section that you want to modify and fill in new form values.
+{"identity":"5f75e7a405c9eac0","salt":"30905495ead5b75a","password":"yCz-
+
+GIThLId8UEermy-imeJaFOIa3j48"}}}
+```
+
+Use the value of the <code style="color: #222222; background-color: #e6e6e6; padding: 1px 2px;">password</code> property to access the component.
+
+
+### Modify the Apigee Edge Installer for PCF Configuration
+
+Modifying the Apigee Edge Installer for PCF configuration is similar to installing Apigee Edge Installer for PCF. From the **Settings** tab, browse to the section that you want to modify and fill in new form values.
 
 **Save** your changes, and then return to the main Ops Manager page and select **Apply Changes**.
 
-## <a id='doc'></a>Access the Edge Documentation
 
-For complete information on using and configuring Edge, see [Version 18.05.01](https://docs.apigee.com/private-cloud/v4.18.05/how-configure-edge).
+### Access the Edge Documentation
+
+For complete information on using and configuring Edge, see [Version 4.19.01](https://docs.apigee.com/private-cloud/v4.19.01/how-configure-edge).
+
+
+
+
+
+
+
+
