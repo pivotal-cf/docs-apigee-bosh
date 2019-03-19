@@ -18,6 +18,14 @@ In this topic:
 - [Feedback](https://docs.pivotal.io/partners/edge-installer/index.html#feedback)
 - [License](https://docs.pivotal.io/partners/edge-installer/index.html#license)
 
+<p class="note warning"><strong> WARNING:</strong>
+Apigee Edge Installer for PCF requires CentOS stemcells. CentOS stemcells are not supported by Pivotal. Apigee is responsible for updating the Edge Installer for PCF to the current major line of the CentOS stemcell. 
+If there is a CVE for the CentOS stemcell, your environment could be at risk. 
+Recommended Action: Find the current major line of CentOS, see <a href="https://bosh.io/stemcells/">https://bosh.io/stemcells/</a>.
+And, find the version of the CentOS stemcell used by the Apigee Edge Installer for PCF, see <a href="https://docs.pivotal.io/partners/edge-installer">https://docs.pivotal.io/partners/edge-installer</a>. 
+If the versions are not the same, contact Apigee.
+</p>
+
 This documentation describes Apigee Edge Installer for Pivotal Cloud Foundry (PCF), which installs the API management service [Apigee Edge for Private Cloud v4.19.01](https://docs.apigee.com/private-cloud/v4.19.01/overview) (Edge) on PCF.
 
 PCF Operators [download](https://network.pivotal.io/) and install the Apigee Edge Installer for PCF tile to expose the [Apigee Edge](http://docs.apigee.com/api-services/content/what-apigee-edge) API management platform in the Marketplace. Developers can then use Edge by creating instances of the service and binding them to their apps from Apps Manager or the Cloud Foundry Command Line Interface (cf CLI).
