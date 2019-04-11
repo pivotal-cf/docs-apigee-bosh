@@ -30,16 +30,16 @@ Below, you will find the steps of the upgrade process:
 
 1. SSH to Postgres standby and stop the monit services.
 
- ```
- sudo su -
- monit stop all
- ```
+    ```
+     sudo su -
+     monit stop all
+     ```
 
 1. Rename postgres datadir.
 
- ```
- mv /opt/apigee/data/apigee-postgresql/pgdata /opt/apigee/data/apigee-postgresql/pgdata-save
- ```
+     ```
+     mv /opt/apigee/data/apigee-postgresql/pgdata /opt/apigee/data/apigee-postgresql/pgdata-save
+     ```
 
 1. Start Postgres server standby.
 
@@ -56,20 +56,20 @@ Below, you will find the steps of the upgrade process:
 
 1. SSH to devportal machine and complete following steps.
 
-  <b>admin_email</b> and <bpass</b> are credentials provided during tile configuration.
+    <b>admin_email</b> and <bpass</b> are credentials provided during tile configuration.
 
-  ```
-  sudo -i
-  cd /opt/apigee/data/apigee-lb/conf.d
-  unlink apigee-drupal-devportal-nginx.conf
-  ln -s /opt/apigee/apigee-drupal-devportal-4.19.01-0.0.100/conf/apigee-drupal-devportal-nginx.conf apigee-drupal-devportal-nginx.conf
-  /opt/apigee/apigee-service/bin/apigee-all restart
-  /opt/apigee/apigee-setup/bin/update.sh -c dp -f/var/vcap/jobs/apigee-drupal-devportal/config/silent.conf
-  cd /var/vcap/jobs/apigee-drupal-devportal/bin
-  mv drain drain-save
-  cd /opt/apigee/apigee-drupal/wwwroot/sites/
-  drush upwd admin_email --password=pass
-  ```
+    ```
+    sudo -i
+    cd /opt/apigee/data/apigee-lb/conf.d
+    unlink apigee-drupal-devportal-nginx.conf
+    ln -s /opt/apigee/apigee-drupal-devportal-4.19.01-0.0.100/conf/apigee-drupal-devportal-nginx.conf apigee-drupal-devportal-nginx.conf
+    /opt/apigee/apigee-service/bin/apigee-all restart
+    /opt/apigee/apigee-setup/bin/update.sh -c dp -f/var/vcap/jobs/apigee-drupal-devportal/config/silent.conf
+    cd /var/vcap/jobs/apigee-drupal-devportal/bin
+    mv drain drain-save
+    cd /opt/apigee/apigee-drupal/wwwroot/sites/
+    drush upwd admin_email --password=pass
+    ```
 
 
 1. Go to OpsMan and press **Apply Changes** again.
@@ -87,92 +87,94 @@ Below, you will find the steps of the upgrade process:
 
 1. Upgrade to v4.18.05 tile using the Ops Manager.
 
-1. The upgrade will likely fail at the ‘upgrade Postgres step.’
+1. The upgrade will likely fail at the `upgrade Postgres step.`
 
 1. SSH to both Postgres master and standby and stop the monit services.
 
- ```
- sudo su -
- monit stop apigee-postgresql
- monit stop edge-postgres-server
-```
+    ```
+  sudo su -
+  monit stop apigee-postgresql
+  monit stop edge-postgres-server
+  ```
 1. Stop edge qpid servers. Qpid should not be pushing any data to Postgres during upgrade.
 
- ```
- /opt/apigee/bin/apigee-service/apigee-all stop
- ```
+    ```
+    /opt/apigee/bin/apigee-service/apigee-all stop
+    ```
+
 1. Promote standby to master.
 
- a. SSH to the Postgres standby machine. To check if its standby, run the following command.
+    1. SSH to the Postgres standby machine. To check if its standby, run the following command.
 
-   ```
-   sudo /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql postgres-check-standby
-   ```
+        ```
+        sudo /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql postgres-check-standby
+        ```
 
-  b. Promote the current standby to master.
+    2. Promote the current standby to master.
 
-    ```
-    /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql promote-standby-to-master <ip address of old master>
-/opt/apigee/apigee-service/bin/apigee-all restart
-```
+        ```
+        /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql promote-standby-to-master <ip address of old master>
+        /opt/apigee/apigee-service/bin/apigee-all restart
+        ```
 
- c. Check whether it is promoted to master by running the command below.
+    3. Check whether it is promoted to master by running the command below.
 
-    ```
-    sudo /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql postgres-check-master
-    ```
+        ```
+        sudo /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql postgres-check-master
+        ```
 
- d. Set replication on the new master. Edit <b>/var/vcap/jobs/edge-postgres-server/config/silent.conf</b> and change the ollowing.
+    4. Set replication on the new master. Edit <b>/var/vcap/jobs/edge-postgres-server/config/silent.conf</b> and change the following.
 
-    ```
-    PG_MASTER=IPorDNSofNewMaster
-    PG_STANDBY=IPorDNSofOldMaster
-    ```
+        ```
+        PG_MASTER=IPorDNSofNewMaster
+        PG_STANDBY=IPorDNSofOldMaster
+        ```
 
-    Run the following command to set replication.
+    5. Run the following command to set replication.
 
-    ```
-    /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-master -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
-    ```
+        ```
+        /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-master -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
+        ```
 
-    Verify the host replication is added by checking <b>/opt/apigee/apigee-postgresql/conf/pg_hba.conf</b>.
+    6. Verify the host replication is added by checking <b>/opt/apigee/apigee-postgresql/conf/pg_hba.conf</b>. 
 
 1. Update apigee-postgresql on the new master.
 
-  a. On the new master node, note down the values from <b>/etc/yum/vars/apigeerepohost</b>, <b>/etc/yum/vars/apigeeuser</b>, and <b>/etc/yum/vars/apigeepassword</b>. We will need them in the next step.
+    1. On the new master node, note down the values from <b>/etc/yum/vars/apigeerepohost</b>, <b>/etc/yum/vars/apigeeuser</b>, and <b>/etc/yum/vars/apigeepassword</b>. We will need them in the next step.
 
-  b. Run the following command to bootstrap v4.18.05.
+    2. Run the following command to bootstrap v4.18.05.
 
-     ```
-curl http://user:password@repohost:3939/bootstrap_4.18.05.sh -o /tmp/bootstrap_4.18.05.sh
-bash /tmp/bootstrap_4.18.05.sh apigeerepohost=repohost:3939 apigeeuser=user apigeepassword=password apigeeprotocol=http://
-/opt/apigee/apigee-service/bin/apigee-service apigee-setup update
-     ```
+         ```
+         curl http://user:password@repohost:3939/bootstrap_4.18.05.sh -o /tmp/bootstrap_4.18.05.sh
+         bash /tmp/bootstrap_4.18.05.sh apigeerepohost=repohost:3939 apigeeuser=user apigeepassword=password apigeeprotocol=http://
+         /opt/apigee/apigee-service/bin/apigee-service apigee-setup update
+         ```
 
-  c. Stop edge-postgres in the new master.
+    3. Stop edge-postgres in the new master.
 
-     ```
-   /opt/apigee/apigee-service/bin/apigee-service edge-postgres-server stop
-     ```
+         ```
+         /opt/apigee/apigee-service/bin/apigee-service edge-postgres-server stop
+         ```
 
-  d. Check edge-postgres and apigee-postgresql are stopped in the old master. They should be already stopped.
+    4. Check edge-postgres and apigee-postgresql are stopped in the old master. They should be already stopped.
 
-  e. Run upgrade on the new master.
+    5. Run upgrade on the new master.
 
-     ```
-   /opt/apigee/apigee-setup/bin/update.sh -c ps -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
-     ```
+         ```
+         /opt/apigee/apigee-setup/bin/update.sh -c ps -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
+         ```
 
-     The upgrade should be successful.
+         The upgrade should be successful.
 
-   f. Upgrade the database in the new master node.
+    6. Upgrade the database in the new master node.
 
-      ```
-    /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql db_upgrade
-      ```
-1. Upgrade apigee-postgresql on the old master.
+        ```
+        /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql db_upgrade
+        ```
 
-   a. Stop apigee-postgresql on the old master by running the following command.
+7. Upgrade apigee-postgresql on the old master.
+
+   1. Stop apigee-postgresql on the old master by running the following command.
 
       ```
     /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql stop
