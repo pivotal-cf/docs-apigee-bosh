@@ -136,7 +136,7 @@ Below, you will find the steps of the upgrade process:
         /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-master -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
         ```
 
-    6. Verify the host replication is added by checking <b>/opt/apigee/apigee-postgresql/conf/pg_hba.conf</b>. 
+    6. Verify the host replication is added by checking <b>/opt/apigee/apigee-postgresql/conf/pg_hba.conf</b>.
 
 1. Update apigee-postgresql on the new master.
 
@@ -174,128 +174,128 @@ Below, you will find the steps of the upgrade process:
 
 7. Upgrade apigee-postgresql on the old master.
 
-   1. Stop apigee-postgresql on the old master by running the following command.
+     1. Stop apigee-postgresql on the old master by running the following command.
 
-      ```
-    /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql stop
-      ```
+          ```
+          /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql stop
+          ```
 
-   b. Edit <b>/var/vcap/jobs/edge-postgres-server/config/silent.conf</b> and change the following.
+     2. Edit <b>/var/vcap/jobs/edge-postgres-server/config/silent.conf</b> and change the following.
 
-      ```
-    PG_MASTER=IPorDNSofNewMaster
-    PG_STANDBY=IPorDNSofOldMaster
-      ```
+          ```
+          PG_MASTER=IPorDNSofNewMaster
+          PG_STANDBY=IPorDNSofOldMaster
+          ```
+     3. Run the following commands below.
 
-      Run the following commands below.
+         ```
+         mv /opt/apigee/data/apigee-postgresql/pgdata /opt/apigee/data/apigee-postgresql/pgdata_old
+         /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-standby -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
+         ```
 
-      ```
-mv /opt/apigee/data/apigee-postgresql/pgdata /opt/apigee/data/apigee-postgresql/pgdata_old
-/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-standby -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
-      ```
+     4. Update apigee-postgresql.
 
-  c. Update apigee-postgresql.
-
-     ```
-    /opt/apigee/apigee-setup/bin/update.sh -c ps -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
-     ```
+        ```
+        /opt/apigee/apigee-setup/bin/update.sh -c ps -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
+         ```
 
 1. Update Edge Components on the new master.
 
-    a. Start Postgres on the new master.
+      1. Start Postgres on the new master.
 
-    ```
-    /opt/apigee/apigee-service/bin/apigee-service edge-postgres-server restart
-    ```
+        ```
+        /opt/apigee/apigee-service/bin/apigee-service edge-postgres-server restart
+        ```
 
-    b. Update Edge Components on the new master.
+      2. Update Edge Components on the new master.
 
-    ```
-    /opt/apigee/apigee-setup/bin/update.sh -c edge -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
-    ```
+        ```
+        /opt/apigee/apigee-setup/bin/update.sh -c edge -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
+        ```
 
 1. Update/Install Edge Components on the old master.
 
-   a. Install Edge Component on the old master.
+     1. Install Edge Component on the old master.
 
-   ```
-   /opt/apigee/apigee-service/bin/apigee-service edge-postgres-server install
-   ```
+         ```
+         /opt/apigee/apigee-service/bin/apigee-service edge-postgres-server install
+         ```
 
-   b. Update the Edge Component on the old master.
+     2. Update the Edge Component on the old master.
 
-   ```
-   /opt/apigee/apigee-setup/bin/update.sh -c edge -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
-   ```
+         ```
+         /opt/apigee/apigee-setup/bin/update.sh -c edge -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
+         ```
 
-1. Check that all the services are running in both master and node. At this point, you can log into Apigee’s analytics dashboard and see all the data.
+1. Check that all the services are running in both master and node.
+At this point, you can log into Apigee’s analytics dashboard and see all the data.
 
 1. Reswap master and standby as described in the official documentation (<a href="https://docs.apigee.com/private-cloud/v4.19.01/handling-postgressql-database-failover">https://docs.apigee.com/private-cloud/v4.19.01/handling-postgressql-database-failover</a>).
 
-   a. On the current master node (N1), run the command below to stop apigee-postgresql.
+     1. On the current master node (N1), run the command below to stop apigee-postgresql.
 
-     ```
-    /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql stop
-     ```
+           ```
+          /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql stop
+           ```
 
-   b. On the current standby node (N2), invoke the command below to promote it to master.
+     2. On the current standby node (N2), invoke the command below to promote it to master.
 
-     ```
-    /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql promote-standby-to-master IPorDNSofOldMaster(N1)
-     ```
+           ```
+          /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql promote-standby-to-master IPorDNSofOldMaster(N1)
+           ```
 
-   c. On the new master (N2) node, edit <b>/var/vcap/jobs/edge-postgres-server/config/silent.conf</b> and change the following.
+     3. On the new master (N2) node, edit <b>/var/vcap/jobs/edge-postgres-server/config/silent.conf</b> and change the following.
 
-      ```
-    PG_MASTER=IPorDNSofNewMaster(N2)
-    PG_STANDBY=IPorDNSofOldMaster(N1)
-      ```
+          ```
+          PG_MASTER=IPorDNSofNewMaster(N2)
+          PG_STANDBY=IPorDNSofOldMaster(N1)
+          ```
 
-      Then, run the following command below.
+     4. Then, run the following command below.
 
-      ```
-    /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-master -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
-      ```
+          ```
+          /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-master -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
+          ```
 
-      Verify the host replication is added by checking /opt/apigee/apigee-postgresql/conf/pg_hba.conf.
+     5. Verify the host replication is added by checking <b>/opt/apigee/apigee-postgresql/conf/pg_hba.conf</b>.
 
-   d. On the old master node (N1), edit <b>/var/vcap/jobs/edge-postgres-server/config/silent.conf</b> and change the following.
+     6. On the old master node (N1), edit <b>/var/vcap/jobs/edge-postgres-server/config/silent.conf</b> and change the following.
 
-      ```
-    PG_MASTER=IPorDNSofNewMaster(N2)
-    PG_STANDBY=IPorDNSofOldMaster(N1)
-      ```
+          ```
+          PG_MASTER=IPorDNSofNewMaster(N2)
+          PG_STANDBY=IPorDNSofOldMaster(N1)
+          ```
 
-   e. On the old master node (N1), stop apigee-postgresql.
+     7. On the old master node (N1), stop apigee-postgresql.
 
-      ```
-   /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql stop
-      ```
+          ```
+          /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql stop
+          ```
 
-    f. On the old master (N1), clean up the data.
+     8. On the old master (N1), clean up the data.
 
-       ```
-    rm -rf /opt/apigee/data/apigee-postgresql/
-       ```
+          ```
+          rm -rf /opt/apigee/data/apigee-postgresql/
+          ```
 
-     g. Make the old master (N1) as standby.
+     9. Make the old master (N1) as standby.
 
 
-       ```
-    /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-standby -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
-       ```
+         ```
+         /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-standby -f /var/vcap/jobs/edge-postgres-server/config/silent.conf
+         ```
 
-    h. Check for master and standby in both machines on the new master (N2).
+     10. Check for master and standby in both machines on the new master (N2).
 
-       ```
-    /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql postgres-check-master
-       ```
+         ```
+         /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql postgres-check-master
+         ```
 
-       On the old master (N1), proceed with the following.
+     11. On the old master (N1), proceed with the following.
 
-       ```
-    /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql postgres-check-standby
-       ```
+         ```
+         /opt/apigee/apigee-service/bin/apigee-service apigee-postgresql postgres-check-standby
+         ```
 
 1. Start qpid servers on the qpid nodes.
 
