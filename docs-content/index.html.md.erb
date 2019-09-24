@@ -1,8 +1,8 @@
 ---
-title: Apigee Edge Installer for PCF
+title: Apigee Edge Installer for Pivotal Platform
 owner: Partners
 ---
-***Note: Apigee Edge Installer for PCF will be deprecated on December 31, 2019***
+***Note: Apigee Edge Installer for Pivotal Platform will be deprecated on December 31, 2019***
 
 In this topic:
 
@@ -14,22 +14,22 @@ In this topic:
 - [Bug Fixes for Edge v4.19.01](https://docs.pivotal.io/partners/edge-installer/index.html#new)
 - [Known Issues for Edge v14.19.01](https://docs.pivotal.io/partners/edge-installer/index.html#new)
 - [Requirements](https://docs.pivotal.io/partners/edge-installer/index.html#reqs)
-- [Differences between Edge Interactive Install and Apigee Edge Installer for PCF](https://docs.pivotal.io/partners/edge-installer/index.html#compare)
-- [Ops Manager, BOSH, and PCF Tiles](https://docs.pivotal.io/partners/edge-installer/index.html#bosh)
+- [Differences between Edge Interactive Install and Apigee Edge Installer for Pivotal Platform](https://docs.pivotal.io/partners/edge-installer/index.html#compare)
+- [Ops Manager, BOSH, and Pivotal Platform Tiles](https://docs.pivotal.io/partners/edge-installer/index.html#bosh)
 - [Feedback](https://docs.pivotal.io/partners/edge-installer/index.html#feedback)
 - [License](https://docs.pivotal.io/partners/edge-installer/index.html#license)
 
 <p class="note warning"><strong> WARNING:</strong>
-Apigee Edge Installer for PCF requires CentOS stemcells. CentOS stemcells are not supported by Pivotal. Apigee is responsible for updating the Edge Installer for PCF to the current major line of the CentOS stemcell.
+Apigee Edge Installer for Pivotal Platform requires CentOS stemcells. CentOS stemcells are not supported by Pivotal. Apigee is responsible for updating the Edge Installer for Pivotal Platform to the current major line of the CentOS stemcell.
 If there is a CVE for the CentOS stemcell, your environment could be at risk.<br>
 <b>Recommended Action:</b> Find the current major line of CentOS, see <a href="https://bosh.io/stemcells/">https://bosh.io/stemcells/</a>.
-And, find the version of the CentOS stemcell used by the Apigee Edge Installer for PCF, see <a href="https://docs.pivotal.io/partners/edge-installer">https://docs.pivotal.io/partners/edge-installer</a>.
+And, find the version of the CentOS stemcell used by the Apigee Edge Installer for Pivotal Platform, see <a href="https://docs.pivotal.io/partners/edge-installer">https://docs.pivotal.io/partners/edge-installer</a>.
 If the versions are not the same, contact Apigee.
 </p>
 
-This documentation describes Apigee Edge Installer for Pivotal Cloud Foundry (PCF), which installs the API management service [Apigee Edge for Private Cloud v4.19.01](https://docs.apigee.com/private-cloud/v4.19.01/overview) (Edge) on PCF.
+This documentation describes Apigee Edge Installer for Pivotal Platform, which installs the API management service [Apigee Edge for Private Cloud v4.19.01](https://docs.apigee.com/private-cloud/v4.19.01/overview) (Edge) on Pivotal Platform.
 
-PCF Operators [download](https://network.pivotal.io/) and install the Apigee Edge Installer for PCF tile to expose the [Apigee Edge](http://docs.apigee.com/api-services/content/what-apigee-edge) API management platform in the Marketplace. Developers can then use Edge by creating instances of the service and binding them to their apps from Apps Manager or the Cloud Foundry Command Line Interface (cf CLI).
+Pivotal Platform Operators [download](https://network.pivotal.io/) and install the Apigee Edge Installer for Pivotal Platform tile to expose the [Apigee Edge](http://docs.apigee.com/api-services/content/what-apigee-edge) API management platform in the Marketplace. Developers can then use Edge by creating instances of the service and binding them to their apps from Apps Manager or the Cloud Foundry Command Line Interface (cf CLI).
 
 ### Overview
 
@@ -44,10 +44,10 @@ You can install Edge and its optional additional components in two ways:
 
 <ul>
 <li style="margin-bottom: 6px;">Interactive installation from the command line requires you to predefine and preconfigure each server individually, then install Edge components on each server in a specific order.</li>
-<li>The <b>Apigee Edge Installer for PCF</b> tile in Ops Manager presents a graphical web interface that installs and manages pre-configured products and components in a uniform way across multiple IaaSes: AWS, Azure, GCP, OpenStack, and vSphere.</li>
+<li>The <b>Apigee Edge Installer for Pivotal Platform</b> tile in Ops Manager presents a graphical web interface that installs and manages pre-configured products and components in a uniform way across multiple IaaSes: AWS, Azure, GCP, OpenStack, and vSphere.</li>
 </ul>
 
-The [Differences between Edge Interactive Install and Apigee Edge Installer for PCF](https://docs.pivotal.io/partners/edge-installer/index.html#compare) section below compares these two installation methods in greater detail.
+The [Differences between Edge Interactive Install and Apigee Edge Installer for Pivotal Platform](https://docs.pivotal.io/partners/edge-installer/index.html#compare) section below compares these two installation methods in greater detail.
 
 
 ### Product Snapshot
@@ -143,7 +143,7 @@ In this release, the following issues were detected:
 
 ### Requirements
 
-Apigee Edge Installer for PCF has the following requirements:
+Apigee Edge Installer for Pivotal Platform has the following requirements:
 
 <ul>
 <li style="margin-bottom: 6px;"><b>VMs:</b> Virtual machines (VMs) for Edge must meet system requirements for memory, CPU, and disk space as defined in <a href="http://docs.apigee.com/private-cloud/latest/installation-requirements">Installation Requirements</a>.</li>
@@ -152,9 +152,9 @@ Apigee Edge Installer for PCF has the following requirements:
 </ul>
 
 
-### Differences between Edge Interactive Install and Apigee Edge Installer for PCF
+### Differences between Edge Interactive Install and Apigee Edge Installer for Pivotal Platform
 
-Apigee Edge Installer for PCF streamlines the Edge for Private Cloud installation process and differs from interactive installation using the command line in the following ways:
+Apigee Edge Installer for Pivotal Platform streamlines the Edge for Private Cloud installation process and differs from interactive installation using the command line in the following ways:
 
 - <b>No config files needed.</b> You use Ops Manager to specify installation and configuration information, and do not have to create separate config files.
 
@@ -175,11 +175,11 @@ Apigee Edge Installer for PCF streamlines the Edge for Private Cloud installatio
 For more information, see [Differences between Operations Manager and interactive Edge installs](https://docs.apigee.com/private-cloud/v4.18.05/differences-between-operations-manager-and-interactive-edge-installs).
 
 
-### Ops Manager, BOSH, and PCF Tiles
+### Ops Manager, BOSH, and Pivotal Platform Tiles
 
-Behind the Ops Manager interface, the open-source tool [BOSH](http://bosh.io/) handles deploying, running, and managing distributed software systems on all PCF-supported cloud infrastructures. Ops Manager provides a uniform graphical, forms-based interface that hides the complexity of generating the cloud-specific deployment manifests and configurations that BOSH requires.
+Behind the Ops Manager interface, the open-source tool [BOSH](http://bosh.io/) handles deploying, running, and managing distributed software systems on all Pivotal Platform-supported cloud infrastructures. Ops Manager provides a uniform graphical, forms-based interface that hides the complexity of generating the cloud-specific deployment manifests and configurations that BOSH requires.
 
-Ops Manager supports graphical configuration, deployment, and management of any software product packaged in [PCF Tile](http://docs.pivotal.io/tiledev) structure.
+Ops Manager supports graphical configuration, deployment, and management of any software product packaged in [Pivotal Platform Tile](http://docs.pivotal.io/tiledev) structure.
 
 
 ### Feedback
